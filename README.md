@@ -51,6 +51,7 @@ cargo build --release
 如果只玩runes，正常索引会很慢，可以不索引铭文。
 在ord文件夹内添加配置文件
 新建一个 config 文件，然后添加 
+vim config
 ```
 # 是否不索引引铭文
 no_index_inscriptions: true 
@@ -66,7 +67,7 @@ bitcoin-data-dir /mnt/HC_Volume/bitcoin_chain/
 index_cache_size: 6800000000
 ```
 
-然后执行节点同步，
+然后执行节点同步，等待同步完成
 ```
 ./ord--config config index update
 ```
