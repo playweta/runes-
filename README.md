@@ -5,7 +5,7 @@
 * 内存越高越好
 * mac、windows、ubunt、wsl都行
 
-## 2.安装比特币全节点bitcoin core
+## 2.安装比特币全节点bitcoin core (安装过的直接跳到第3步)
 下载bitcoincore 
 地址：https://bitcoincore.org/en/releases/
 最新版本26.1，选择适合你的系统的版本
@@ -22,10 +22,6 @@ mkdir /mnt/HC_Volume/bitcoin_chain
 开始同步    /mnt/HC_Volume/bitcoin_chain是全节点的数据存储位置  
 ```
 bitcoin-core.daemon -txindex=1 -datadir="/mnt/HC_Volume/bitcoin_chain" -rest;
-```
-如果全节点设置了密码要加上密码
-```
-ord --bitcoin-rpc-username 账号 --bitcoin-rpc-password 密码 server
 ```
 
 ## 3.下载 runes，最新版本18.0
@@ -56,14 +52,23 @@ cargo build --release
 在ord文件夹内添加配置文件
 新建一个 config 文件，然后添加 
 ```
+# 是否不索引引铭文
 no_index_inscriptions: true 
+# 是否索引符文
 index_runes: true
+# 全节点账号（默认是没有的，没有设置不用管）
+bitcoin-rpc-username 账号
+# 全节点密码（默认是没有的，没有设置不用管）
+bitcoin-rpc-password 密码
+# 全节点数据
+bitcoin-data-dir /mnt/HC_Volume/bitcoin_chain/
+# 内存，单位是字节 ，默认是1/4， 内存大的自己算一下设置多少合适
 index_cache_size: 6800000000
 ```
 
-然后执行
+然后执行节点同步，
 ```
-./ord --bitcoin-data-dir /mnt/HC_Volume/bitcoin_chain/ --config config index update
+./ord--config config index update
 ```
 
 列出所有的runes代币
@@ -71,6 +76,10 @@ index_cache_size: 6800000000
 ./ord runes
 ```
 
+运行server
+```
+./ord --config config server
+```
 浏览器打开
 http://0.0.0.0/runes
 
